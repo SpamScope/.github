@@ -8,7 +8,7 @@
 - Introduce the email-analysis mission and the relationship between SpamScope and mail-parser.
 - Present mail-parser as the primary project and MailXray as “Coming soon”.
 - Link to the English website and `info@spamscope.ai`.
-- Use native Markdown, short headings, and descriptive links, without banners, badges, or decorative images.
+- Use native Markdown, short headings, and descriptive links, with a few emoji icons in headings and contact links. Keep banners, badges, and decorative images out of the profile.
 - Omit download statistics that would need periodic updates.
 
 ## Sources
