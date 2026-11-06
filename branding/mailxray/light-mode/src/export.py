@@ -26,3 +26,20 @@ for size, blob in zip(sizes, blobs):
 for name in ['logo-horizontal', 'logo-stacked']:
     convert(ROOT/'png'/f'{name}.png', '-background', 'white', '-alpha', 'remove', ROOT/'previews'/f'{name}-white.png')
 convert(ROOT/'png/favicon-32.png', '-filter', 'point', '-resize', '256x256', '-background', 'white', '-alpha', 'remove', ROOT/'previews/favicon-32-enlarged.png')
+
+# Matching transparent assets for dark backgrounds.
+for name in ['logo-horizontal-dark', 'logo-stacked-dark']:
+    convert('-background', 'none', ROOT/'svg'/f'{name}.svg', ROOT/'png'/f'{name}.png')
+    convert('-background', 'none', '-density', '192', ROOT/'svg'/f'{name}.svg', ROOT/'png'/f'{name}@2x.png')
+    convert(ROOT/'png'/f'{name}.png', '-background', '#0B1220', '-alpha', 'remove', ROOT/'previews'/f'{name}.png')
+for size in [16, 32, 48, 180, 192, 256, 512]:
+    source = 'favicon-small-dark' if size == 16 else 'favicon-dark'
+    convert('-background', 'none', '-density', '384', ROOT/'svg'/f'{source}.svg', '-resize', f'{size}x{size}', ROOT/'png'/f'favicon-dark-{size}.png')
+(ROOT/'png/favicon-dark.png').write_bytes((ROOT/'png/favicon-dark-512.png').read_bytes())
+blobs = [(ROOT/'png'/f'favicon-dark-{size}.png').read_bytes() for size in sizes]
+offset = 6 + 16 * len(sizes)
+entries = []
+for size, blob in zip(sizes, blobs):
+    entries.append(struct.pack('<BBBBHHII', size % 256, size % 256, 0, 0, 1, 32, len(blob), offset))
+    offset += len(blob)
+(ROOT/'favicon-dark.ico').write_bytes(struct.pack('<HHH', 0, 1, len(sizes)) + b''.join(entries) + b''.join(blobs))

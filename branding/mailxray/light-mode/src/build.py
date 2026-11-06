@@ -19,9 +19,9 @@ def lettering(parts, size, x, baseline, centered=False):
     return ''.join(paths)
 
 
-def symbol(simple=False, tiny=False):
+def symbol(simple=False, tiny=False, outline=INK):
     # Open contours leave transparent clearance around the foreground lens.
-    result = f'''<g fill="none" stroke="{INK}" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M121 102H43Q24 102 24 121V243Q24 262 43 262H251Q270 262 270 243V220"/><path d="M29 119L143 201Q148 205 154 201L164 193M31 251L112 181M261 251L211 213"/></g>
+    result = f'''<g fill="none" stroke="{outline}" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><path d="M121 102H43Q24 102 24 121V243Q24 262 43 262H251Q270 262 270 243V220"/><path d="M29 119L143 201Q148 205 154 201L164 193M31 251L112 181M261 251L211 213"/></g>
     <path d="M283 172L330 220" fill="none" stroke="{RED}" stroke-width="29" stroke-linecap="round"/>
     <circle cx="224" cy="110" r="85" fill="{BLUE}" stroke="{RED}" stroke-width="16"/>
     '''
@@ -54,3 +54,20 @@ svg('logo-stacked', 760, 650,
     + lettering(by, 47, 380, 542, True), 'MailXray by SpamScope')
 svg('favicon', 360, 360, '<g transform="translate(0 28)">' + symbol(True) + '</g>', 'MailXray')
 svg('favicon-small', 360, 360, '<g transform="translate(0 28)">' + symbol(True, True) + '</g>', 'MailXray')
+
+# Dark backgrounds: lighten only the envelope and lettering. The graph stays
+# dark against the pale blue lens so its connections retain their contrast.
+dark_main = [('Mail', '#FFFFFF'), ('Xray', RED)]
+dark_by = [('by ', '#FFFFFF'), ('Spam', RED), ('Scope', '#FFFFFF')]
+svg('logo-horizontal-dark', 1200, 340,
+    '<g transform="translate(22 17)">' + symbol(outline='#FFFFFF') + '</g>'
+    + lettering(dark_main, 157, 405, 196)
+    + lettering(dark_by, 48, 409, 263), 'MailXray by SpamScope')
+svg('logo-stacked-dark', 760, 650,
+    '<g transform="translate(191 24) scale(1.05)">' + symbol(outline='#FFFFFF') + '</g>'
+    + lettering(dark_main, 137, 380, 463, True)
+    + lettering(dark_by, 47, 380, 542, True), 'MailXray by SpamScope')
+svg('favicon-dark', 360, 360,
+    '<g transform="translate(0 28)">' + symbol(True, outline='#FFFFFF') + '</g>', 'MailXray')
+svg('favicon-small-dark', 360, 360,
+    '<g transform="translate(0 28)">' + symbol(True, True, outline='#FFFFFF') + '</g>', 'MailXray')

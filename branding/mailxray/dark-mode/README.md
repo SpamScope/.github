@@ -10,9 +10,17 @@ This identity is based on the approved draft: an envelope, a red magnifying glas
 - `svg/favicon-small.svg`: simplified two-node variant for 16 px.
 - `png/`: transparent logos at standard and double resolution; favicons at 16, 32, 48, 180, 192, 256, and 512 px.
 - `favicon.ico`: 16, 32, 48, and 256 px sizes in one file.
-- `previews/`: previews on white backgrounds; use the transparent files for production.
+- `previews/`: previews on white or dark backgrounds; use the transparent files for production.
 
-The SVGs use paths and have no font, embedded image, or external dependencies. The SVG and PNG files have transparent backgrounds. Use them on white or very light backgrounds to keep the envelope and dark lettering legible.
+The SVGs use paths and have no font, embedded image, or external dependencies. The SVG and PNG files have transparent backgrounds. Use the standard variants on white or very light backgrounds to keep the envelope and dark lettering legible.
+
+## Dark backgrounds
+
+Use `svg/logo-horizontal-dark.svg` or `svg/logo-stacked-dark.svg` on dark backgrounds. Their PNG equivalents are in `png/`, including `@2x` exports. These files have transparent backgrounds; the dark background appears only in the previews.
+
+The envelope and dark lettering become white (`#FFFFFF`). The SpamScope red and lens blue remain unchanged. Connections inside the pale blue lens stay dark to preserve their contrast.
+
+`svg/favicon-dark.svg`, `svg/favicon-small-dark.svg`, the `png/favicon-dark-*.png` files, and `favicon-dark.ico` provide matching symbols for dark backgrounds. The small SVG and 16 px PNG use two nodes for clarity.
 
 ## Palette
 
